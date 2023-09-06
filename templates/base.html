@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}<title>FINECAP Stands</title>{% endblock %}
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            width: 100%;
+            background-color: midnightblue;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .logo-imagem {
+            width: 50px;
+            height: 50px;
+            background-color: black;
+            border-radius: 25px;
+        }
+
+        .container-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-texto {
+            margin-left: 20px;
+            color: white;
+        }
+
+        .menu li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .menu li a {
+            font-size: 18px;
+            text-decoration: none;
+            color: white;
+            text-transform: uppercase;
+            padding: 10px 15px;
+            border-radius: 15px;
+        }
+
+        .menu li a:hover {
+            background-color: rgb(100, 100, 100, 0.5);
+            opacity: 10%;
+        }
+
+    </style>
+
+</head>
+<body>
+    
+    <header>
+        <div class="container-logo">
+            <div class="logo-imagem"></div>
+            <div class="logo-texto">
+                <h1>FINECAP Stands</h1>
+            </div>
+        </div>
+
+        <div class="menu">
+            <ul>
+                <li><a href="{% url 'reserva_criar' %}">Reserva</a></li>
+                <li><a href="{% url 'reserva_listar' %}">Listagem</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+
+        {% block center %}
+
+        {% endblock %}
+
+    </main>
+
+</body>
+</html>

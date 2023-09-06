@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}<title>Listagem de Stands</title>{% endblock %}
+
+{% block center %}
+    <a href="{% url 'reserva_criar' %}">Nova reserva</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>CNPJ</th>
+                <th>Nome empresa</th>
+                <th>Categoria empresa</th>
+                <th>Quitado?</th>
+            </tr>
+            <tbody>
+                {% for reserva in reservas %}
+                <tr>
+                    <td>{{ reserva.cnpj }}</td>
+                    <td>{{ reserva.nome_empresa }}</td>
+                    <td>{{ reserva.categoria_empresa }}</td>
+                    <td>{{ reserva.quitado }}</td>
+                    <td>
+                        <a href="{% url 'reserva_detalhe' reserva.id %}">Detalhe</a>
+                        <a href="{% url 'reserva_editar' reserva.id %}">Editar</a>
+                        <a href="{% url 'reserva_remover' reserva.id %}">Remover</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </thead>
+    </table>
+{% endblock %}

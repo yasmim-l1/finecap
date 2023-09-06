@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}<title>Detalhe Stand</title>{% endblock %}
+
+{% block center %}
+<p>CNPJ: {{ reserva.cnpj }}</p>
+<p>Nome da empresa: {{ reserva.nome_empresa }}</p>
+<p>Categoria da empresa: {{ reserva.categoria_empresa }}</p>
+<p>Quitado? {{ reserva.quitado }}</p>
+{% endblock %}
