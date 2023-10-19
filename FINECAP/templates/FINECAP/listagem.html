@@ -2,9 +2,23 @@
 {% block title %}<title>Listagem de Stands</title>{% endblock %}
 
 {% block center %}
-    <a href="{% url 'reserva_criar' %}">Nova reserva</a>
 
-    <table>
+<style>
+    .center {
+        display: grid;
+        place-items: center;
+        padding: 5px;
+    }
+
+    table, th, td {
+        border: 1px solid;
+    }
+</style>
+
+    <a href="{% url 'reserva_criar' %}" class="center">Nova reserva</a>
+    <a href="{% url 'stand_criar' %}" class="center">Novo stand</a>
+
+    <table class="center">
         <thead>
             <tr>
                 <th>CNPJ</th>
@@ -29,4 +43,32 @@
             </tbody>
         </thead>
     </table>
+
+    <br>
+    <br>
+
+    <table class="center">
+        <thead>
+            <tr>
+                <th>Localização</th>
+                <th>Valor</th>
+                <th>Reserva</th>
+            </tr>
+            <tbody>
+                {% for stand in stands %}
+                <tr>
+                    <td>{{ stand.localizacao }}</td>
+                    <td>{{ stand.valor }}</td>
+                    <td>{{ stand.reserva }}</td>
+                    <td>
+                        <a href="{% url 'stand_detalhe' reserva.id %}">Detalhe</a>
+                        <a href="{% url 'stand_editar' reserva.id %}">Editar</a>
+                        <a href="{% url 'stand_remover' reserva.id %}">Remover</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </thead>
+    </table>
+
 {% endblock %}

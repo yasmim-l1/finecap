@@ -1,48 +1,65 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Reserva
-from .forms import ReservaForm
+from django.urls import reverse_lazy
+from django.views import generic
+from django.contrib.messages import views
 
-def index(request):
-    return render(request, 'FINECAP/index.html')
+from .models import Reserva, Stand
+from .forms import ReservaForm, StandForm
 
-def reserva_criar(request):
-    if request.method == 'POST':
-        form = ReservaForm(request.POST)
+class HomeView(generic.TemplateView):
+    template_name = "FINECAP/index.html"
 
-        if form.is_valid():
-            form.save()
-            form = ReservaForm()
+##############################################################
 
-    else:
-        form = ReservaForm()
+class reserva_criarView(generic.CreateView):
+    model = Reserva
+    form_class = ReservaForm
+    success_url = reverse_lazy("FINECAP:reserva_criar")
+    template_name = "FINECAP/reserva.html"
+    success_message = "Reserva cadastrada com sucesso!"
 
-    return render(request, 'FINECAP/reserva.html', {'form':form})
+class reserva_editarView(generic.UpdateView):
+    model = Reserva
+    form_class = ReservaForm
+    success_url = reverse_lazy("FINECAP:reserva_editar")
+    template_name = "FINECAP/reserva.html"
 
-def reserva_editar(request, id):
-    reserva = get_object_or_404(Reserva,id=id)
+class reserva_removerView(generic.DeleteView):
+    model = Reserva
+    success_url = reverse_lazy("FINECAP:reserva_remover")
+    template_name = "FINECAP/reserva_exclusao.html"
 
-    if request.method == 'POST':
-        form = ReservaForm(request.POST, instance=reserva)
-        if form.is_valid():
-            form.save()
-            return redirect('reserva_listar')
-        
-    else:
-        form = ReservaForm(instance=reserva)
+class reserva_listarView(generic.ListView):
+    model = Reserva
+    template_name = "FINECAP/listagem.html"
 
-    return render(request, 'FINECAP/reserva.html', {'form':form})
+class reserva_detalheView(generic.DetailView):
+    model = Reserva
+    template_name = "FINECAP/detalhe.html"
 
-def reserva_remover(request, id):
-    reserva = get_object_or_404(Reserva, id=id)
-    reserva.delete()
-    return redirect('reserva_listar')
+############################################################
 
-def reserva_listar(request):
-    reservas = Reserva.objects.all()
+class stand_criarView(generic.CreateView):
+    model = Stand
+    form_class = StandForm
+    success_url = reverse_lazy("FINECAP:stand_criar")
+    template_name = "FINECAP/stand.html"
+    success_message = "Reserva cadastrada com sucesso!"
 
-    return render(request, 'FINECAP/listagem.html', {'reservas':reservas})
+class stand_editarView(generic.UpdateView):
+    model = Stand
+    form_class = StandForm
+    success_url = reverse_lazy("FINECAP:stand_editar")
+    template_name = "FINECAP/stand.html"
 
-def reserva_detalhe(request, id):
-    reserva = get_object_or_404(Reserva, id=id)
+class stand_removerView(generic.DeleteView):
+    model = Stand
+    success_url = reverse_lazy("FINECAP:stand_remover")
+    template_name = "FINECAP/stand_exclusao.html"
 
-    return render(request, 'FINECAP/detalhe.html', {'reserva':reserva})
+class stand_listarView(generic.ListView):
+    model = Stand
+    template_name = "FINECAP/listagem.html"
+
+class stand_detalheView(generic.DetailView):
+    model = Stand
+    template_name = "FINECAP/detalhe_stand.html"

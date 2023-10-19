@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}<title>Cadastro de Stands</title>{% endblock %}
+
+{% block center %}
+
+<style>
+    .center {
+        display: grid;
+        place-items: center;
+        padding: 5px;
+    }
+</style>
+
+<form method="post" class="center">
+    {% csrf_token %}
+
+    <br>
+    <br>
+
+    <div class="center">
+        <label for="localizacao">Localização:</label>
+        {{ form.localizacao }}
+    </div>
+
+    <div class="center">
+        <label for="valor" class="center">Valor:</label>
+        {{ form.valor }}
+    </div>
+
+    <div class="center">
+        <label for="reserva" class="center">Reserva:</label>
+        {{ form.reserva }}
+    </div>
+
+    <br>
+    <br>
+    
+    <button type="submit" class="center">Enviar</button>
+</form>
+{% endblock %}

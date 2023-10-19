@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\yasmi\OneDrive\Documentos\Projetos\Projetos VSCode\PROJETOS PPI\FINECAP\venv"
+VIRTUAL_ENV="C:\Users\20201094010059\Documents\projetos\FINECAP\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
