@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
 from django.views import generic
+from django.contrib import messages
 from django.contrib.messages import views
 
 from .models import Reserva, Stand
@@ -13,24 +14,32 @@ class HomeView(generic.TemplateView):
 class reserva_criarView(generic.CreateView):
     model = Reserva
     form_class = ReservaForm
-    success_url = reverse_lazy("FINECAP:reserva_criar")
+    success_url = reverse_lazy("reserva_listar")
     template_name = "FINECAP/reserva.html"
-    success_message = "Reserva cadastrada com sucesso!"
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Reserva Criada Com Sucesso!')
+        return super().form_valid(form)
 
 class reserva_editarView(generic.UpdateView):
     model = Reserva
     form_class = ReservaForm
-    success_url = reverse_lazy("FINECAP:reserva_editar")
+    success_url = reverse_lazy("reserva_listar")
     template_name = "FINECAP/reserva.html"
 
 class reserva_removerView(generic.DeleteView):
     model = Reserva
-    success_url = reverse_lazy("FINECAP:reserva_remover")
-    template_name = "FINECAP/reserva_exclusao.html"
+    success_url = reverse_lazy("reserva_listar")
+    template_name = "FINECAP/messages/reserva_exclusao.html"
+
+    def form_valid(self, form):
+        messages.success(self.request, 'A Reserva Foi Excluída Com Sucesso!')
+        return super().form_valid(form)
 
 class reserva_listarView(generic.ListView):
     model = Reserva
     template_name = "FINECAP/listagem.html"
+    context_object_name = 'reservas'
 
 class reserva_detalheView(generic.DetailView):
     model = Reserva
@@ -41,24 +50,32 @@ class reserva_detalheView(generic.DetailView):
 class stand_criarView(generic.CreateView):
     model = Stand
     form_class = StandForm
-    success_url = reverse_lazy("FINECAP:stand_criar")
+    success_url = reverse_lazy("stand_listar")
     template_name = "FINECAP/stand.html"
-    success_message = "Reserva cadastrada com sucesso!"
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'Stand Criado Com Sucesso!')
+        return super().form_valid(form)
 
 class stand_editarView(generic.UpdateView):
     model = Stand
     form_class = StandForm
-    success_url = reverse_lazy("FINECAP:stand_editar")
+    success_url = reverse_lazy("stand_listar")
     template_name = "FINECAP/stand.html"
 
 class stand_removerView(generic.DeleteView):
     model = Stand
-    success_url = reverse_lazy("FINECAP:stand_remover")
+    success_url = reverse_lazy("stand_listar")
     template_name = "FINECAP/stand_exclusao.html"
+
+    def form_valid(self, form):
+        messages.success(self.request, 'O Stand Foi Excluído Com Sucesso!')
+        return super().form_valid(form)
 
 class stand_listarView(generic.ListView):
     model = Stand
-    template_name = "FINECAP/listagem.html"
+    template_name = "FINECAP/listagem_stand.html"
+    context_object_name = 'stands'
 
 class stand_detalheView(generic.DetailView):
     model = Stand
