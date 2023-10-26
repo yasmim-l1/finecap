@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib import messages
-from django.contrib.messages import views
+from django.core.paginator import Paginator
 
 from .models import Reserva, Stand
 from .forms import ReservaForm, StandForm
@@ -40,7 +40,8 @@ class reserva_listarView(generic.ListView):
     model = Reserva
     template_name = "FINECAP/listagem.html"
     context_object_name = 'reservas'
-
+    paginate_by = 5
+    
 class reserva_detalheView(generic.DetailView):
     model = Reserva
     template_name = "FINECAP/detalhe.html"
@@ -66,7 +67,7 @@ class stand_editarView(generic.UpdateView):
 class stand_removerView(generic.DeleteView):
     model = Stand
     success_url = reverse_lazy("stand_listar")
-    template_name = "FINECAP/stand_exclusao.html"
+    template_name = "FINECAP/messages/stand_exclusao.html"
 
     def form_valid(self, form):
         messages.success(self.request, 'O Stand Foi Excluído Com Sucesso!')
@@ -76,6 +77,7 @@ class stand_listarView(generic.ListView):
     model = Stand
     template_name = "FINECAP/listagem_stand.html"
     context_object_name = 'stands'
+    paginate_by = 5
 
 class stand_detalheView(generic.DetailView):
     model = Stand
